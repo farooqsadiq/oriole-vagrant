@@ -1,0 +1,6 @@
+# REM: if you are looking for passwords or other variables
+# that vary from dev to stage to prod, check the other subfolders
+
+# setup vars
+project:                      "oriole-ansible"
+version:                      "0.1.1"

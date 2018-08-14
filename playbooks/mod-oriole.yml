@@ -1,0 +1,32 @@
+---
+- name: install oriole module
+  hosts: oriole
+
+  tasks:
+
+    - name: add deployment descriptor 
+      become: true
+      template:
+        src:  "templates/deployment-descriptor.json.j2"
+        dest:  "/etc/folio/deployment-descriptors/mod-oriole.json"
+
+    - name: add module descriptor 
+      become: true
+      template:
+        src:  "templates/module-descriptor.json.j2"
+        dest:  "/etc/folio/module-descriptors/mod-oriole.json"
+
+    - name: add mod-oriole to okapi-modules
+
+    - name: pull mod-oriole container
+      # restart okapix
+      #
+      #
+
+    - name: enable mod-oriole
+
+  handlers:
+    - name: restart okapi
+      service:
+        name: okapi
+        state: restarted

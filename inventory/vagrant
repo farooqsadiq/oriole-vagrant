@@ -1,0 +1,8 @@
+[default]
+oriole-dev.test
+
+[oriole]
+oriole-dev.test
+
+[dev:children]
+oriole

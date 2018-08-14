@@ -1,0 +1,27 @@
+{
+  "id": "mod-oriole-1.0.0",
+  "name": "oriole",
+  "provides": [
+    {
+      "id": "mod-oriole",
+      "version": "1.0",
+      "handlers": [
+        {
+          "methods": [ "GET", "POST", "PUT", "PATCH", "DELETE" ],
+          "pathPattern": "/resources"
+        }
+      ]
+    },
+    {
+      "id": "_tenant",
+      "version": "1.0",
+      "interfaceType": "system",
+      "handlers": [
+        {
+          "methods": [ "POST" ],
+          "pathPattern": "/_/tenant"
+        }
+      ]
+    }
+  ]
+}
