@@ -1,32 +1,49 @@
 ---
 - name: install oriole module
   hosts: oriole
+  become: true
+
+  vars:
+    mod:
+      name: 'mod-oriole'
+      version: '1.0.0'
+      image: 'farooqsadiq:mod-oriole'
 
   tasks:
-
     - name: add deployment descriptor 
       become: true
       template:
         src:  "templates/deployment-descriptor.json.j2"
-        dest:  "/etc/folio/deployment-descriptors/mod-oriole.json"
+        dest:  "/etc/folio/deployment-descriptors/{{ mod.name }}.json"
+      notify: restart okapi
 
     - name: add module descriptor 
       become: true
       template:
         src:  "templates/module-descriptor.json.j2"
-        dest:  "/etc/folio/module-descriptors/mod-oriole.json"
+        dest:  "/etc/folio/module-descriptors/{{ mod.name }}.json"
+      notify: restart okapi
 
-    - name: add mod-oriole to okapi-modules
+    - name: update okapi-deploy.conf
+      become: true
+      template:
+        src:  "templates/okapi-deploy.conf.j2"
+        dest:  "/etc/folio/okapi-deploy.conf"
+      notify: restart okapi
+
 
     - name: pull mod-oriole container
-      # restart okapix
-      #
-      #
+      become: true
+      docker_image:
+        name: "farooqsadiq/{{ mod.name }}"
+        repository: "{{ mod.image }}"
+        tag: "v{{ mod.version }}"
+      notify: restart okapi
 
-    - name: enable mod-oriole
+      # - name: enable mod-oriole for tenant
 
   handlers:
     - name: restart okapi
       service:
-        name: okapi
+        name: okapi-deploy.service
         state: restarted

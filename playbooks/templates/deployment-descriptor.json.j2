@@ -1,7 +1,7 @@
 {
-  "srvcId" : "mod--oriole-1.0.0",
+  "srvcId" : "{{ mod.name }}-{{ mod.version }}",
   "descriptor" : {
-    "dockerImage" : "farooqsadiq/mod-oriole:latest",
-    "dockerPull" : false
-      }
+    "dockerImage" : "{{ mod.image }}",
+    "dockerPull" : true
+  }
 }
